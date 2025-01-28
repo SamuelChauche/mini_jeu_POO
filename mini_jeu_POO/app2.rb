@@ -22,7 +22,7 @@ enemy2 = Player.new("Kaaris")
 enemies = [enemy1, enemy2]
 
 #Etats des joueurs
-puts "Voici l'état des joueurs"
+puts "Voici l'état des joueurs "
 user.show_state
 enemies.each do |enemy|
   enemy.show_state
@@ -30,17 +30,20 @@ end
 
 # Boucle de combat
 while user.life_points > 0 && enemies.any? { |enemy| enemy.life_points > 0 }
-  # Affichage de l'état du HumanPlayer
-  user.show_state
-
   # Affichage du menu
+  puts " "
+  puts " Tu as #{user.life_points}pts de vie !"
+  puts " "
   puts "\nQuelle action veux-tu effectuer ?"
-  puts "a - chercher une meilleure arme"
-  puts "s - chercher à se soigner"
-  puts "attaquer un joueur en vue :"
+  puts "a - chercher une meilleure arme 🔫"
+  puts "s - chercher à se soigner 🚑"
+  puts "-------------------------------------"
+  puts "Attaquer un joueur en vue :"
+  puts " "
   enemies.each_with_index do |enemy, index|
-    puts "#{index} - #{enemy.name} a #{enemy.life_points} points de vie"
+    puts "#{index} - #{enemy.name} a #{enemy.life_points}pts de vie !❤️"
   end
+  puts " "
 
   # Lecture de l'action choisie par le joueur
   print "> "
@@ -55,7 +58,7 @@ while user.life_points > 0 && enemies.any? { |enemy| enemy.life_points > 0 }
     enemy_index = action.to_i
     if enemy_index >= 0 && enemy_index < enemies.length
       enemy = enemies[enemy_index]
-      user.attacks(enemy)
+      user.attacks(enemies[enemy_index])
     else
       puts "Choix invalide. Veuillez réessayer."
     end
@@ -64,7 +67,7 @@ while user.life_points > 0 && enemies.any? { |enemy| enemy.life_points > 0 }
   end
 
   # Les ennemis attaquent le joueur
-  puts "Les autres joueurs t'attaquent !"
+  puts "Les autres joueurs t'attaquent !☠️"
   enemies.each do |enemy|
     if enemy.life_points > 0
       enemy.attacks(user)
@@ -75,6 +78,7 @@ while user.life_points > 0 && enemies.any? { |enemy| enemy.life_points > 0 }
   enemies.delete_if { |enemy| enemy.life_points <= 0 }
 end
 
+
 # Fin du jeu
 puts "La partie est finie"
 if user.life_points > 0
@@ -82,6 +86,5 @@ if user.life_points > 0
 else
   puts "Loser ! Tu as perdu !"
 end
-
 
 binding.pry

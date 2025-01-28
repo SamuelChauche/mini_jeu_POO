@@ -22,7 +22,7 @@ class Player
   def gets_damage(damage_received)
     @life_points -= damage_received
     if @life_points <= 0
-      puts "#{@name} a été tué ! GG!  💪"
+      puts "💪   \e[1m#{@name} a été tué ! GG!\e[0m  💪"
     end
   end
 
@@ -43,7 +43,10 @@ class HumanPlayer < Player
   def show_state
     puts "- Tu as a #{@life_points}pts de vie ❤️  et une arme de niveau #{@weapon_level} ⚔️"
     puts " "
-  end
+    if @life_points < 30
+      puts "⚠️  ATTENTION, TU AS #{@life_points}pts de vie !!!   ⚠️ "
+    end
+  end 
 
   def compute_damage
     rand(1..6) * @weapon_level
@@ -53,10 +56,10 @@ class HumanPlayer < Player
     new_weapon_level = rand(1..6)
     puts " "
     puts " "
-    puts "\e[1m🔫🔫Tu as trouvé une arme de niveau #{new_weapon_level}🔫🔫\e[0m"
+    puts "\e[1m🔫🔫   Tu as trouvé une arme de niveau #{new_weapon_level}  🔫🔫\e[0m"
     if new_weapon_level > @weapon_level
       @weapon_level = new_weapon_level
-      puts "🔫🔫ENJOOOOYYYY !🔫🔫"
+      puts "🔫🔫   ENJOOOOYYYY !   🔫🔫"
       puts " "
     else
       puts "\e[1m🔫🔫Cette arme est à chier !🔫🔫\e[0m"
@@ -70,6 +73,7 @@ class HumanPlayer < Player
     puts " "
     gets.chomp
     puts "⚠️   -#{damage}pts de vie pour #{enemy.name}   ⚠️"
+    puts " "
     enemy.gets_damage(damage)
   end
 
@@ -77,6 +81,7 @@ class HumanPlayer < Player
     new_pack = rand(1..6)
     case new_pack
     when 1
+      puts " "
       puts "Tu n'as rien trouvé !"
     when 2..5
       @life_points = [@life_points + 50, 100].min

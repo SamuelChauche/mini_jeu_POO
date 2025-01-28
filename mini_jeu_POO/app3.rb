@@ -29,6 +29,7 @@ game = Game.new(user_name)
 
 # Boucle de combat
 while game.is_still_ongoing?
+  puts "Let's go !!!!"
   gets.chomp
   game.new_players_in_sight
   puts "\e[4mFais entrer pour continuer...\e[0m"
